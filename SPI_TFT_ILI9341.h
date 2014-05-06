@@ -59,7 +59,7 @@
  *
  * // the TFT is connected to SPI pin 5-7 and IO's 8-10
  * SPI_TFT_ILI9341 TFT(p5, p6, p7, p8, p9, p10,"TFT"); // mosi, miso, sclk, cs, reset, dc
- * If your display need a signal for switch the backlight use a aditional IO pin in your program 
+ * // If your display need a signal for switch the backlight use a aditional IO pin in your program 
  *
  * int main() {
  *     TFT.claim(stdout);      // send stdout to the TFT display 
@@ -75,7 +75,7 @@
  *     TFT.set_font((unsigned char*) Arial24x23);  // select font 2
  *     TFT.locate(48,115);
  *     TFT.printf("Bigger Font");
- *  }
+ * }
  * @endcode
  */
  class SPI_TFT_ILI9341 : public GraphicsDisplay {
@@ -97,14 +97,12 @@
    *
    * @param 
    * @returns width of screen in pixel
-   *
    */    
   virtual int width();
 
   /** Get the height of the screen in pixel
    *
    * @returns height of screen in pixel 
-   *
    */     
   virtual int height();
     
@@ -116,20 +114,19 @@
    */    
   virtual void pixel(int x, int y,int colour);
     
-  /** draw a circle
+  /** Draw a circle
    *
    * @param x0,y0 center
    * @param r radius
-   * @param color 16 bit color                                                                 *
-   *
+   * @param color 16 bit color
    */    
   void circle(int x, int y, int r, int colour); 
   
-  /** draw a filled circle
+  /** Draw a filled circle
    *
    * @param x0,y0 center
    * @param r radius
-   * @param color 16 bit color                                                                 *
+   * @param color 16 bit color
    *
    * use circle with different radius,
    * can miss some pixel
@@ -138,34 +135,31 @@
   
  
     
-  /** draw a 1 pixel line
+  /** Draw a 1 pixel line
    *
    * @param x0,y0 start point
    * @param x1,y1 stop point
    * @param color 16 bit color
-   *
    */    
   void line(int x0, int y0, int x1, int y1, int colour);
     
-  /** draw a rect
+  /** Draw a rect
    *
    * @param x0,y0 top left corner
    * @param x1,y1 down right corner
    * @param color 16 bit color
-   *                                                   *
    */    
   void rect(int x0, int y0, int x1, int y1, int colour);
     
-  /** draw a filled rect
+  /** Draw a filled rect
    *
    * @param x0,y0 top left corner
    * @param x1,y1 down right corner
    * @param color 16 bit color
-   *
    */    
   void fillrect(int x0, int y0, int x1, int y1, int colour);
     
-  /** setup cursor position
+  /** Setup cursor position
    *
    * @param x x-position (top left)
    * @param y y-position 
@@ -173,65 +167,58 @@
   virtual void locate(int x, int y);
     
   /** Fill the screen with _backgroun color
-   *
    */   
   virtual void cls (void);   
     
-  /** calculate the max number of char in a line
+  /** Calculate the max number of char in a line
    *
-   * @returns max columns
-   * depends on actual font size
-   *
+   * @returns max columns, depends on actual font size
    */    
   virtual int columns(void);
     
-  /** calculate the max number of columns
+  /** Calculate the max number of columns
    *
-   * @returns max column
-   * depends on actual font size
-   *
+   * @returns max column, depends on actual font size
    */   
   virtual int rows(void);
     
-  /** put a char on the screen
+  /** Put a char on the screen
    *
    * @param value char to print
    * @returns printed char
-   *
    */
   virtual int _putc(int value);
     
-  /** draw a character on given position out of the active font to the TFT
+  /** Draw a character on given position out of the active font to the TFT
    *
    * @param x x-position of char (top left) 
    * @param y y-position
    * @param c char to print
-   *
    */    
   virtual void character(int x, int y, int c);
     
-  /** paint a bitmap on the TFT 
+  /** Paint a bitmap on the TFT 
    *
    * @param x,y : upper left corner 
    * @param w width of bitmap
    * @param h high of bitmap
    * @param *bitmap pointer to the bitmap data
    *
-   *   bitmap format: 16 bit R5 G6 B5
+   * bitmap format: 16 bit R5 G6 B5
    * 
-   *   use Gimp to create / load , save as BMP, option 16 bit R5 G6 B5            
-   *   use winhex to load this file and mark data stating at offset 0x46 to end
-   *   use edit -> copy block -> C Source to export C array
-   *   paste this array into your program
+   * use Gimp to create / load , save as BMP, option 16 bit R5 G6 B5            
+   * use winhex to load this file and mark data stating at offset 0x46 to end
+   * use edit -> copy block -> C Source to export C array
+   * paste this array into your program
    * 
-   *   define the array as static const unsigned char to put it into flash memory
-   *   cast the pointer to (unsigned char *) :
-   *   tft.Bitmap(10,40,309,50,(unsigned char *)scala);
+   * define the array as static const unsigned char to put it into flash memory
+   * cast the pointer to (unsigned char *) :
+   * tft.Bitmap(10,40,309,50,(unsigned char *)scala);
    */    
   void Bitmap(unsigned int x, unsigned int y, unsigned int w, unsigned int h,unsigned char *bitmap);
     
 #if DEVICE_LOCALFILESYSTEM
-   /** paint a 16 bit BMP from local filesytem on the TFT (slow) 
+   /** Paint a 16 bit BMP from local filesytem on the TFT (slow) 
    *
    * @param x,y : upper left corner 
    * @param *Name_BMP name of the BMP file
@@ -241,29 +228,27 @@
    * @returns -3 if bmp file is to big for screen 
    * @returns -4 if buffer malloc go wrong
    *
-   *   bitmap format: 16 bit R5 G6 B5
+   * bitmap format: 16 bit R5 G6 B5
    * 
-   *   use Gimp to create / load , save as BMP, option 16 bit R5 G6 B5
-   *   copy to internal file system            
-   * 
+   * use Gimp to create / load , save as BMP, option 16 bit R5 G6 B5
+   * copy to internal file system            
    */      
     
   int BMP_16(unsigned int x, unsigned int y, const char *Name_BMP);  
 #endif
     
     
-  /** select the font to use
+  /** Select the font to use
    *
    * @param f pointer to font array 
    *                                                                              
-   *   font array can created with GLCD Font Creator from http://www.mikroe.com
-   *   you have to add 4 parameter at the beginning of the font array to use: 
-   *   - the number of byte / char
-   *   - the vertial size in pixel
-   *   - the horizontal size in pixel
-   *   - the number of byte per vertical line
-   *   you also have to change the array to char[]
-   *
+   * font array can created with GLCD Font Creator from http://www.mikroe.com
+   * you have to add 4 parameter at the beginning of the font array to use: 
+   * - the number of byte / char
+   * - the vertial size in pixel
+   * - the horizontal size in pixel
+   * - the number of byte per vertical line
+   * you also have to change the array to char[]
    */  
   void set_font(unsigned char* f);
    
@@ -271,7 +256,6 @@
    *  x,y: 0,0 is always top left 
    *
    * @param o direction to use the screen (0-3)  
-   *
    */  
   void set_orientation(unsigned int o);
     
@@ -292,17 +276,16 @@ protected:
   void WindowMax (void);
 
 
-  /** draw a horizontal line
+  /** Draw a horizontal line
    *
    * @param x0 horizontal start
    * @param x1 horizontal stop
    * @param y vertical position
-   * @param color 16 bit color                                               
-   *
+   * @param color 16 bit color
    */
   void hline(int x0, int x1, int y, int colour);
     
-  /** draw a vertical line
+  /** Draw a vertical line
    *
    * @param x horizontal position
    * @param y0 vertical start 
@@ -324,13 +307,12 @@ protected:
     
   /** Init the HX8347D controller 
    *
-   */    
+   */
   void tft_reset();
     
    /** Write data to the LCD controller
    *
    * @param dat data written to LCD controller
-   * 
    */   
   //void wr_dat(unsigned int value);
   void wr_dat(unsigned char value);
